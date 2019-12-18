@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const mongoose = require("../../models/Connection");
+const mongoose = require("mongoose");
 // Load Logs model
-const Log = mongoose.model("logs");
+const Log = require("../models/LogSchema");
 // CRUD functionality for Logs
 
 //get all logs
@@ -21,6 +21,7 @@ router.get("/user/all", (req, res) => {
 });
 // create log
 router.post("/new", (req, res) => {
+  console.log("Food item is added");
   Log.create(req.body).then(log => {
     res.json(log);
   });

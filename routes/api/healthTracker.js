@@ -72,6 +72,7 @@ router.get(
     if (token) {
       console.log("user is loggd in to the get route for day:id");
       db.Day.addWater(req, res);
+      console.log("water ", res);
     } else {
       return res.status(403).send({ success: false, msg: "Unauthorized." });
     }
@@ -79,19 +80,19 @@ router.get(
 );
 
 // Get Nutrition route -- Gets a specific day by the dayId
-router.get(
-  "/day/:id",
-  passport.authenticate("jwt", { session: false }),
-  (req, res) => {
-    const token = getToken(req.headers);
-    if (token) {
-      console.log("user is loggd in to the get route for day:id");
-      db.Day.updateNutrition(req, res);
-    } else {
-      return res.status(403).send({ success: false, msg: "Unauthorized." });
-    }
-  }
-);
+// router.get(
+//   "/day/:id",
+//   passport.authenticate("jwt", { session: false }),
+//   (req, res) => {
+//     const token = getToken(req.headers);
+//     if (token) {
+//       console.log("user is loggd in to the get route for day:id");
+//       db.Day.updateNutrition(req, res);
+//     } else {
+//       return res.status(403).send({ success: false, msg: "Unauthorized." });
+//     }
+//   }
+// );
 
 // Adds water to the given day.
 router.post(
@@ -99,28 +100,29 @@ router.post(
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     const token = getToken(req.headers);
+    console.log("water body", req.body);
     if (token) {
       console.log("Water is being added");
-      db.Day.addWater(req, res);
+      db.Water.addWater(req, res);
     } else {
       return res.status(403).send({ success: false, msg: "Unauthorized." });
     }
   }
 );
 // Updates nutrition to the given day.
-router.post(
-  "/updateNutrition",
-  passport.authenticate("jwt", { session: false }),
-  (req, res) => {
-    const token = getToken(req.headers);
-    if (token) {
-      console.log("Nutrition is being added");
-      db.Day.updateNutrition(req, res);
-    } else {
-      return res.status(403).send({ success: false, msg: "Unauthorized." });
-    }
-  }
-);
+// router.post(
+//   "/updateNutrition",
+//   passport.authenticate("jwt", { session: false }),
+//   (req, res) => {
+//     const token = getToken(req.headers);
+//     if (token) {
+//       console.log("Nutrition is being added");
+//       db.Day.updateNutrition(req, res);
+//     } else {
+//       return res.status(403).send({ success: false, msg: "Unauthorized." });
+//     }
+//   }
+// );
 
 // Updates user's weight for a given date
 router.post(

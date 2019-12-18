@@ -6,16 +6,16 @@ const mongo = require("mongodb");
 const bodyParser = require("body-parser");
 const passport = require("passport");
 const routes = require("./routes");
-const PORT = process.env.PORT || 3001;
 
-// const goals = require("./routes/api/goals");
-// const logs = require("./routes/api/logs");
+const PORT = process.env.PORT || 3001;
+const users = require("./routes/auth");
+const goals = require("./routes/goals");
+const logs = require("./routes/FoodLogs");
+const healthTracker = require("./routes/api/healthTracker");
 const app = express();
 const cors = require("cors");
 
 const path = require("path");
-// Serve static files from the React app
-// app.use(express.static(path.join(__dirname, 'tonic-fitness/build')));
 
 // CORS workaround for localhost
 const corsOptions = {
@@ -51,21 +51,12 @@ require("./config/passport")(passport);
 
 app.use(express.static(path.join(__dirname, "public")));
 // Routes
-app.use(routes);
-// app.use("/api/goals", goals);
-// app.use("/api/logs", logs);
-
-// app.get("/*", (req, res) => {
-//   res.sendFile(path.join(__dirname, "client/build/index.html"), function(err) {
-//     if (err) {
-//       res.status(500).send(err);
-//     }
-//   });
-// });
-
-// app.get("*", (req, res) => {
-//   res.sendFile(path.join(__dirname + "/fitnessdb/build/index.html"));
-// });
+// app.use(routes);
+// app.use(models);
+app.use("/auth", users);
+app.use("/FoodLog", logs);
+app.use("/goals", goals);
+app.use("/api/healthTracker", healthTracker);
 app.listen(PORT, function() {
   console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
 });

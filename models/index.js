@@ -1,7 +1,8 @@
 module.exports = {
-  User: require("./User")
-  // Day: require("./Day"),
-  // // Nutrition: require("./Nutrition"),
-  // Exercise: require("./Exercise"),
-  // // Water: require("./Water")
+  User: require("./User"),
+  Log: require("./LogSchema"),
+  Goal: require("./Goal"),
+  Day: require("./Day"),
+  Exercise: require("./Exercise"),
+  Water: require("./Water")
 };
